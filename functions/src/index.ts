@@ -9,3 +9,11 @@ export const getAllEvents = functions.https.onRequest((req, res) => {
         res.status(200).send(snap.docs.map(doc => doc.data()));
     });
 });
+
+export const getEventById = functions.https.onRequest((req, res) => {
+    const id = req.headers['id'] as string;
+
+    return firestore.collection('events').doc(id).get().then(snap => {
+        res.status(200).send(snap.data());
+    })
+});

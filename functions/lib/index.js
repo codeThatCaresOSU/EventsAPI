@@ -9,4 +9,10 @@ exports.getAllEvents = functions.https.onRequest((req, res) => {
         res.status(200).send(snap.docs.map(doc => doc.data()));
     });
 });
+exports.getEventById = functions.https.onRequest((req, res) => {
+    const id = req.headers['id'];
+    return firestore.collection('events').doc(id).get().then(snap => {
+        res.status(200).send(snap.data());
+    });
+});
 //# sourceMappingURL=index.js.map
